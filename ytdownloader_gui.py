@@ -1,6 +1,6 @@
 # ============================================================================================
 
-import Downloader as Downloader
+
 from tkinter import *
 import tkinter as tk
 from tkinter import messagebox
@@ -122,17 +122,17 @@ class Application:
             self.text.insert(
                 tk.INSERT, f'[-]Downloading : {yt.title} failed\n')
 
-        video_name = self.videos_dir+"\\"+stream.title+".mp4"
-        song_name = self.videos_dir+"\\"+stream.title+".mp3"
+        # video_name = self.videos_dir+"\\"+stream.title+".mp4"
+        # song_name = self.videos_dir+"\\"+stream.title+".mp3"
 
-        self.text.insert(tk.INSERT, f'[+]Converting : {yt.title} to mp3\n')
+        # self.text.insert(tk.INSERT, f'[+]Converting : {yt.title} to mp3\n')
 
-        video = VideoFileClip(video_name)
-        video.audio.write_audiofile(song_name)
+        # video = VideoFileClip(video_name)
+        # video.audio.write_audiofile(song_name)
 
         self.songs += 1
         self.progress["value"] = self.songs
-        video.close()
+        # video.close()
     # --------------------------------------------------------------------------------------------
 
     def download_playlist(self, playlist_url=None):
@@ -159,7 +159,7 @@ class Application:
 
         tk.messagebox.showinfo("YTDownloader", "Download completed!")
 
-        self.clean_up()
+        # self.clean_up()
     # --------------------------------------------------------------------------------------------
 
     def clean_up(self):
