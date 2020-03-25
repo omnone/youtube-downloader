@@ -7,7 +7,7 @@ from moviepy.video.io.VideoFileClip import VideoFileClip
 from pytube.cli import on_progress
 from pytube import YouTube, Playlist
 import concurrent.futures
-# import pyfiglet
+import pyfiglet
 # ============================================================================================
 
 
@@ -83,9 +83,8 @@ def menu():
 
 
 def main():
-    # ascii_banner = pyfiglet.figlet_format('YTDownload')
-    # print(ascii_banner)
-    print('Developed by: Konstantinos Bourantas')
+    ascii_banner = pyfiglet.figlet_format('YTDownload')
+    print(ascii_banner)
     print('------------------------------------------------------------')
 
     option = menu()
