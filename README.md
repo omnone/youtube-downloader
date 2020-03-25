@@ -1,2 +1,2 @@
 # youtube-downloader
-Download videos from youtube using Python.
+Download songs from youtube using Python.
