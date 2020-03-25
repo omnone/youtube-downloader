@@ -105,7 +105,8 @@ class Application:
     def download_song(self, url):
         sleep(10)
         try:
-            yt = YouTube(url, proxies={"http": "http://144.91.116.171:443"})
+            #Need to add proxy otherwise youtube sends 429 error.
+            yt = YouTube(url)
         except Exception as e:
             self.text.insert(tk.INSERT, f'[-]Connection Error! {str(e)}\n')
 
