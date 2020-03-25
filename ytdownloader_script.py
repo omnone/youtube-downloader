@@ -1,12 +1,13 @@
 # ============================================================================================
 import os
+import sys
 import re
 import eyed3
-from moviepy.editor import *
+from moviepy.video.io.VideoFileClip import VideoFileClip
 from pytube.cli import on_progress
 from pytube import YouTube, Playlist
 import concurrent.futures
-import pyfiglet
+# import pyfiglet
 # ============================================================================================
 
 
@@ -17,7 +18,10 @@ class Downloader:
 
     def download_song(self, url):
 
-        yt = YouTube(url, on_progress_callback=on_progress)
+        # yt = YouTube(url, on_progress_callback=on_progress)
+        yt = YouTube(url)
+
+        print(f'[*]Downloading : {yt.title}')
 
         stream = yt.streams.first()
 
@@ -29,15 +33,19 @@ class Downloader:
 
         video = VideoFileClip(video_name)
         video.audio.write_audiofile(song_name)
+        video.close()
 
-    def download_playlist(self, playlist=None):
+    def download_playlist(self, playlist_url=None):
 
-        pl = Playlist(playlist)
+        pl = Playlist(playlist_url)
         print(f'[+]Downloading playlist, total: {len(pl)} songs')
 
-        with concurrent.futures.ProcessPoolExecutor() as executor:
-            executor.map(
-                self.download_song, pl, chunksize=5)
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            executor.map(self.download_song, pl, chunksize=5)
+
+        print('[+]Download completed!')
+
+        self.clean_up()
 
     def clean_up(self):
         folder = os.listdir(self.videos_dir)
@@ -75,8 +83,8 @@ def menu():
 
 
 def main():
-    ascii_banner = pyfiglet.figlet_format('YTDownload')
-    print(ascii_banner)
+    # ascii_banner = pyfiglet.figlet_format('YTDownload')
+    # print(ascii_banner)
     print('Developed by: Konstantinos Bourantas')
     print('------------------------------------------------------------')
 
@@ -105,11 +113,10 @@ def main():
 
         downloader.download_playlist(url)
 
-        downloader.clean_up()
+        # downloader.clean_up()
 
 
-# ============================================================================================
-
+# # ============================================================================================
 
 if __name__ == "__main__":
     main()
