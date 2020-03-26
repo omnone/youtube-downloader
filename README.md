@@ -1,4 +1,4 @@
 # youtube-downloader
 Python script with a gui for downloading songs from youtube using tkinter and pytube.
 
-![](screenshot.png =100x20)
+<img src="screenshot.png" width="100" height="100">
