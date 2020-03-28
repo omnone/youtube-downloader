@@ -91,19 +91,19 @@ class Application:
     # Buttons callbacks functions
 
     def btnDownload_callback(self, url_entry):
-        # print(url_entry)
+        """Callback function called when download button is pressed"""
 
         if(self.videos_dir != None):
             self.text.insert(tk.INSERT, "Please wait....\n")
 
             if(self.radioOption.get() == "playlist"):
-                my_thread = threading.Thread(
+                subThread = threading.Thread(
                     target=self.download_playlist, args=(url_entry,))
-                my_thread.start()
+                subThread.start()
             else:
-                my_thread = threading.Thread(
+                subThread = threading.Thread(
                     target=self.download_song, args=(url_entry,))
-                my_thread.start()
+                subThread.start()
             # self.setSongsInfo()
         else:
             dialog_title = 'Error'
@@ -111,7 +111,7 @@ class Application:
             tk.messagebox.showwarning(dialog_title, dialog_text)
 
     def btnChooseDir_callback(self):
-        """choose path for saving downloaded songs"""
+        """Opens file chooser dialog in order to choose path for saving downloaded songs"""
         Tk().withdraw()
         path_to_save = askdirectory()
         # print(path_to_save)
@@ -141,7 +141,7 @@ class Application:
 
         # download and save to the selected path.
         try:
-           stream.download(self.videos_dir)
+            stream.download(self.videos_dir)
         except:
             self.text.insert(
                 tk.INSERT, f'[-]Downloading : {yt.title} failed\n')
@@ -156,7 +156,7 @@ class Application:
     # --------------------------------------------------------------------------------------------
 
     def download_playlist(self, playlist_url=None):
-
+        """Downloads all songs from a playlist"""
         pl = Playlist(playlist_url)
 
         self.videos_dir += "/"+pl.title()
